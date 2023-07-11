@@ -8,9 +8,8 @@ function App() {
   const [planets, setPlanets] = useState([]);
 
   const fetchData = async () => {
-    const getPlanetsAPI = await fetch(fetchPlanetsAPI);
-    const response = await getPlanetsAPI.json();
-    setPlanets(response);
+    const getPlanetsAPI = await fetchPlanetsAPI();
+    setPlanets(getPlanetsAPI);
   };
 
   // Consequência de uma ação. Acontece de forma posterior a um evento.

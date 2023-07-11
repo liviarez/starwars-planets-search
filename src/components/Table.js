@@ -9,11 +9,10 @@ export default function Table() {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Rotation</th>
+          <th>Rotation Period</th>
           <th>Orbital Period</th>
           <th>Diameter</th>
           <th>Climate</th>
-          <th>Name</th>
           <th>Gravity</th>
           <th>Terrain</th>
           <th>Surface Water</th>
