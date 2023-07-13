@@ -1,10 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
 
 function Table() {
   const {
     planetsData,
-  } = useContext(PlanetsContext);
+    filterName,
+    setFilterName,
+    planetsInput,
+    filterSelection } = useContext(PlanetsContext);
+
+  const dataTreatment = () => planetsData.filter((planet) => (
+    filterSelection.every((filter) => {
+      if (filter.condition === 'igual a') {
+        return +planet[filter.column] === +filter.value;
+      }
+      if (filter.condition === 'maior que') {
+        return +planet[filter.column] > +filter.value;
+      }
+      return +planet[filter.column] < +filter.value;
+    })
+  ));
+  useEffect(() => {
+    setFilterName(
+      dataTreatment(),
+    );
+  }, [filterSelection]);
 
   return (
     <div>
@@ -27,8 +47,11 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {
-            planetsData.map((planet) => (
+          { filterName
+            .filter(({ name }) => name.toUpperCase()
+              .includes(planetsInput
+                .toUpperCase()))
+            .map((planet) => (
               <tr key={ planet.name }>
                 <td data-testid="planet-name">{ planet.name }</td>
                 <td>{planet.rotation_period}</td>
@@ -44,8 +67,7 @@ function Table() {
                 <td>{planet.edited}</td>
                 <td>{planet.url}</td>
               </tr>
-            ))
-          }
+            ))}
 
         </tbody>
       </table>
