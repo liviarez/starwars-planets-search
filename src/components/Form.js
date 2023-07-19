@@ -16,7 +16,6 @@ export default function Form() {
   });
 
   const saveSelection = (e) => {
-    console.log('e', e);
     setSelected({
       ...selected,
       [e.target.name]: e.target.value,
@@ -36,6 +35,22 @@ export default function Form() {
       value: '0',
     });
   };
+
+  const deleteFilter = (event) => {
+    const filtrosDeleteados = filterSelection
+      .filter((teste) => teste.column !== event.column);
+    setFilterSelection(filtrosDeleteados);
+  };
+
+  /* const filterRemover = ({ target }) => {
+    const { name } = target;
+    const newSelectedFilters = filterSelection.filter((filter) => filter.column === name);
+    console.log('🚀 ~ file: Form.js:48 ~ filterRemover ~ filterSelection:', filterSelection);
+    setFilterSelection(
+      newSelectedFilters,
+    );
+    console.log('🚀 ~ file: Form.js:48 ~ filterRemover ~ newSelectedFilters:', newSelectedFilters);
+  }; */
 
   return (
     <div>
@@ -97,7 +112,39 @@ export default function Form() {
         >
           Adicionar filtro
         </button>
+        <button
+          data-testid="filter"
+          type="submit"
+          onClick={ () => setFilterSelection([]) }
+        >
+          Limpar filtros
+        </button>
       </form>
+      <div>
+        {
+          filterSelection.map((filtro) => (
+            <div
+              key={ filtro.column }
+              data-testid="filter"
+            >
+              <p>
+                {`${filtro.column}
+                ${filtro.value}
+                ${filtro.condition}`}
+              </p>
+              <button
+                type="button"
+                onClick={ () => deleteFilter(event) }
+              >
+                X
+              </button>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }
+
+// https://app.betrybe.com/learn/course/5e938f69-6e32-43b3-9685-c936530fd326/live-lectures/9e8c3bc8-5ae7-4ef8-b7e0-9482b2213d32/recording/c5e71e77-beef-4370-8188-89360df4ba54
+// Suporte com a lógica da 7 na monitoria individual. 19/07
