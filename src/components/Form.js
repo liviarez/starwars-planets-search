@@ -36,21 +36,11 @@ export default function Form() {
     });
   };
 
-  const deleteFilter = (event) => {
+  const deleteFilter = (parametro) => {
     const filtrosDeleteados = filterSelection
-      .filter((teste) => teste.column !== event.column);
+      .filter((teste) => teste.column !== parametro.column);
     setFilterSelection(filtrosDeleteados);
   };
-
-  /* const filterRemover = ({ target }) => {
-    const { name } = target;
-    const newSelectedFilters = filterSelection.filter((filter) => filter.column === name);
-    console.log('🚀 ~ file: Form.js:48 ~ filterRemover ~ filterSelection:', filterSelection);
-    setFilterSelection(
-      newSelectedFilters,
-    );
-    console.log('🚀 ~ file: Form.js:48 ~ filterRemover ~ newSelectedFilters:', newSelectedFilters);
-  }; */
 
   return (
     <div>
@@ -134,7 +124,7 @@ export default function Form() {
               </p>
               <button
                 type="button"
-                onClick={ () => deleteFilter(event) }
+                onClick={ () => deleteFilter(parametro) }
               >
                 X
               </button>
