@@ -8,7 +8,7 @@ function Table() {
     setFilterName,
     planetsInput,
     filterSelection } = useContext(PlanetsContext);
-
+  // + transforma uma string em numero
   const dataTreatment = () => planetsData.filter((planet) => (
     filterSelection.every((filter) => {
       if (filter.condition === 'igual a') {

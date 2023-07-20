@@ -1,33 +1,45 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from '../renderWithRouter';
-import Form from '../components/Form';
+import App from '../App';
 
-describe('Testa o componente <Form.js />', () => {
-  it('Teste se os botões da aplicação estão funcionando corretamente', () => {
-    const { history } = renderWithRouter(<Form />);
-    const addButton = screen.getByTestId('button-filter');
-    const cleanButton = screen.getByTestId('filter');
-    expect(addButton).toBeInTheDocument();
-    expect(cleanButton).toBeInTheDocument();
+describe('Verifica o componente Form', () => {
+    beforeEach(() => {
+        render(<App />);
+      });
+it('Teste se o componente Form é renderizado corretamente', async ()=>{
+const nameSearch = screen.getByPlaceholderText(/filtro por planeta/i)
+const columnDropDown = screen.getByTestId('name-filter')
+const comparisonDropDown = screen.getByTestId('comparison-filter')
+const valueInput = screen.getByRole('spinbutton')
+const addFilter = screen.getByRole('button', {  name: /adicionar filtro/i})
+const cleanFilter = screen.getByRole('button', {  name: /limpar filtros/i})
+expect(nameSearch).toBeInTheDocument();
+expect(columnDropDown).toBeInTheDocument();
+expect(comparisonDropDown).toBeInTheDocument();
+expect(valueInput).toBeInTheDocument();
+expect(addFilter).toBeInTheDocument();
+expect(cleanFilter).toBeInTheDocument();
 
-    userEvent.click(addButton);
-    userEvent.click(cleanButton);
+})
+it('Testa os mocks da API', async () => {
 
+    const nameSearch = screen.getByTestId('name-filter')
+    expect(nameSearch).toBeInTheDocument();
+    userEvent.type(nameSearch, 'Tatooine')
+    expect(nameSearch.value).toBe('Tatooine')
 
-   /*  expect(history.location.pathname).toBe('/'); */
-  });
-  it('Teste se a aplicação é redirecionada para a página de Home', () => {
-    const { history } = renderWithRouter(<Form />);
-    const addButton = screen.getByRole('button', { name: 'Adicionar filtro' });
-    const cleanButton = screen.getByRole('button', { name: 'Limpar filtros' });
-    expect(addButton).toBeInTheDocument();
-    expect(cleanButton).toBeInTheDocument();
+    const valueInput = screen.getByTestId('value-filter')
+    expect(valueInput).toBeInTheDocument();
+    userEvent.type(valueInput, '23')
+    expect(valueInput.value).toBe('023')
 
-    userEvent.click(addButton);
-    userEvent.click(cleanButton);
-
-  });
-});
-
+    const addFilterButton = screen.getByRole('button', {  name: /adicionar filtro/i})
+    expect(addFilterButton).toBeInTheDocument()
+    userEvent.click(addFilterButton)
+    const cleanFilter = screen.getByRole('button', {  name: /limpar filtros/i})
+    expect(cleanFilter).toBeInTheDocument();
+    userEvent.click(cleanFilter)
+   
+})
+})
