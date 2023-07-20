@@ -37,6 +37,7 @@ export default function Form() {
   };
 
   const deleteFilter = (parametro) => {
+    console.log('🚀 ~ file: Form.js:40 ~ deleteFilter ~ parametro:', parametro);
     const filtrosDeleteados = filterSelection
       .filter((teste) => teste.column !== parametro.column);
     setFilterSelection(filtrosDeleteados);
@@ -103,7 +104,7 @@ export default function Form() {
           Adicionar filtro
         </button>
         <button
-          data-testid="filter"
+          data-testid="button-remove-filters"
           type="submit"
           onClick={ () => setFilterSelection([]) }
         >
@@ -115,19 +116,20 @@ export default function Form() {
           filterSelection.map((filtro) => (
             <div
               key={ filtro.column }
-              data-testid="filter"
             >
-              <p>
+              <p
+                data-testid="filter"
+              >
                 {`${filtro.column}
                 ${filtro.value}
                 ${filtro.condition}`}
+                <button
+                  type="button"
+                  onClick={ () => deleteFilter(filtro) }
+                >
+                  X
+                </button>
               </p>
-              <button
-                type="button"
-                onClick={ () => deleteFilter(parametro) }
-              >
-                X
-              </button>
             </div>
           ))
         }
