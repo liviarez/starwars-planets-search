@@ -49,6 +49,14 @@ it('Testa os mocks da API', async () => {
     expect(xButton).toBeInTheDocument();
     userEvent.click(xButton);
     expect(xButton).not.toBeInTheDocument();
-   
+
+    const filterColumn = screen.getByTestId("column-filter");
+    const comparisonDropDownFilter = screen.getByTestId("comparison-filter");
+    const valuefilter = screen.getByTestId("value-filter");
+
+    userEvent.selectOptions(filterColumn, "diameter");
+    userEvent.selectOptions(comparisonDropDownFilter, "maior que");
+    userEvent.type(valuefilter, "5000");
+    userEvent.click(secondAddFilter);
 })
 })
