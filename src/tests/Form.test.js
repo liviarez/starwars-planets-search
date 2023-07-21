@@ -20,6 +20,7 @@ expect(comparisonDropDown).toBeInTheDocument();
 expect(valueInput).toBeInTheDocument();
 expect(addFilter).toBeInTheDocument();
 expect(cleanFilter).toBeInTheDocument();
+/* expect(xButton).toBeInTheDocument(); */
 
 })
 it('Testa os mocks da API', async () => {
@@ -40,6 +41,14 @@ it('Testa os mocks da API', async () => {
     const cleanFilter = screen.getByRole('button', {  name: /limpar filtros/i})
     expect(cleanFilter).toBeInTheDocument();
     userEvent.click(cleanFilter)
+
+    const secondAddFilter = screen.getByRole('button', {  name: /adicionar filtro/i})
+    expect(secondAddFilter).toBeInTheDocument()
+    userEvent.click(secondAddFilter)
+    const xButton = screen.getByRole('button', {  name: /x/i}) 
+    expect(xButton).toBeInTheDocument();
+    userEvent.click(xButton);
+    expect(xButton).not.toBeInTheDocument();
    
 })
 })
