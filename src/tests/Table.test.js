@@ -58,7 +58,7 @@ await waitFor(() => {
       userEvent.type(valuefilter, '23')
       userEvent.click(addFilterButton)
 
-      const thirdPlanet = screen.getByText(/Yavin IV/i)
+      const thirdPlanet = screen.getByText(/Dagobah/i)
       expect(thirdPlanet).toBeInTheDocument()
 
         userEvent.selectOptions(filterColumn, 'diameter')
